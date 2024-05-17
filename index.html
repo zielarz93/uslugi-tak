@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profesjonalne Usługi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .service {
+            margin-bottom: 2rem;
+        }
+        .service h2 {
+            color: #333;
+        }
+        .service ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .service ul li {
+            background-color: #f9f9f9;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .service ul li:hover {
+            background-color: #e9e9e9;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        .contact, .booking {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .contact h2, .booking h2 {
+            color: #333;
+        }
+        .contact form, .booking form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .contact form input, .contact form textarea, .booking form input, .booking form select, .booking #card-element {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            width: 80%;
+            max-width: 500px;
+        }
+        .contact form button, .booking form button {
+            padding: 0.5rem 2rem;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .contact form button:hover, .booking form button:hover {
+            background-color: #555;
+        }
+    </style>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <header>
+        <h1>Profesjonalne Usługi</h1>
+    </header>
+    <nav>
+        <a href="#sprzatanie">Sprzątanie</a>
+        <a href="#fryzjerstwo">Fryzjerstwo</a>
+        <a href="#kosmetologia">Kosmetologia</a>
+        <a href="#transport">Transport</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#rezerwacja">Rezerwacja</a>
+    </nav>
+    <div class="container">
+        <div id="sprzatanie" class="service">
+            <h2>Sprzątanie</h2>
+            <ul>
+                <li>Sprzątanie domów</li>
+                <li>Sprzątanie biur</li>
+                <li>Sprzątanie po imprezach</li>
+            </ul>
+        </div>
+        <div id="fryzjerstwo" class="service">
+            <h2>Fryzjerstwo</h2>
+            <ul>
+                <li>Strzyżenie damskie</li>
+                <li>Strzyżenie męskie</li>
+                <li>Koloryzacja</li>
+            </ul>
+        </div>
+        <div id="kosmetologia" class="service">
+            <h2>Kosmetologia</h2>
+            <ul>
+                <li>Manicure</li>
+                <li>Pedicure</li>
+                <li>Regulacja brwi</li>
+                <li>Dokładanie rzęs</li>
+                <li>Masaże</li>
+                <li>Zabiegi ujędrniające twarz</li>
+                <li>Botoks ust</li>
+                <li>Powiększanie ust</li>
+            </ul>
+        </div>
+        <div id="transport" class="service">
+            <h2>Transport</h2>
+            <ul>
+                <li>Transport osobowy</li>
+                <li>Transport towarowy</li>
+                <li>Transport międzynarodowy</li>
+            </ul>
+        </div>
+    </div>
+    <div id="kontakt" class="contact">
+        <h2>Kontakt</h2>
+        <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
+            <input type="text" name="name" placeholder="Twoje imię" required>
+            <input type="email" name="email" placeholder="Twój email" required>
+            <input type="text" name="phone" placeholder="Twój numer telefonu" required>
+            <textarea name="message" placeholder="Twoja wiadomość" rows="4" required></textarea>
+            <button type="submit">Wyślij</button>
+        </form>
+    </div>
+    <div id="rezerwacja" class="booking">
+        <h2>Rezerwacja</h2>
+        <form id="bookingForm">
+            <input type="text" name="name" placeholder="Twoje imię" required>
+            <input type="email" name="email" placeholder="Twój email" required>
+            <input type="text" name="phone" placeholder="Twój numer telefonu" required>
+            <select name="service" required>
+                <option value="">Wybierz usługę</option>
+                <option value="manicure">Manicure</option>
+                <option value="pedicure">Pedicure</option>
+                <option value="brow_shaping">Regulacja brwi</option>
+                <option value="lash_extensions">Dokładanie rzęs</option>
+                <option value="massage">Masaże</option>
+                <option value="face_treatment">Zabiegi ujędrniające twarz</option>
+                <option value="botox">Botoks ust</option>
+                <option value="lip_enhancement">Powiększanie ust</option>
+            </select>
+            <input type="date" name="date" required>
+            <input type="time" name="time" min="08:00" max="18:00" required>
+            <div id="card-element"></div>
+            <button type="submit">Rezerwuj</button>
+        </form>
+    </div>
+    <footer>
+        <p>&copy; 2024 Profesjonalne Usługi. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+            
+            fetch('https://formspree.io/f/your-form-id', { // Zastąp 'https://formspree.io/f/your-form-id' odpowiednim URL-em z Formspree
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert('Wiadomość została wysłana!');
+            })
+            .catch(error => {
+               
